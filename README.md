@@ -9,7 +9,7 @@ Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo de
 
 ## Integrantes
 * Anna Karoline Antônio
-* Amanda Mourthé
+* Amanda Mourthe Marques Villaça Veiga
 * Bruno Henrique Ferreira da Silva
 * Ednilson Rafael de Carvalho
 * Lucas Emanuel Sales Rocha
