@@ -8,13 +8,14 @@ Arquitetura de Dados em Nuvem
 Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
 
 ## Integrantes
-* Nome completo do aluno 1
-* Nome completo do aluno 2
-* Nome completo do aluno 3
-* Nome completo do aluno 4
+* Anna Karoline Antônio
+* Amanda Mourthé
+* Bruno Henrique Ferreira da Silva
+* Ednilson Rafael de Carvalho
+* Lucas Emanuel Sales Rocha
 
 ## Orientador
-* Nome completo do professor 1
+*  Cristiano Geraldo Teixeira Silva
 
 # Documentação
 
