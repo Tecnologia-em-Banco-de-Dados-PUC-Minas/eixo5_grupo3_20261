@@ -8,7 +8,7 @@ Arquitetura de Dados em Nuvem
 Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
 
 ## Integrantes
-* Anna Karoline Antônio
+* Anna Karoline Antonio
 * Amanda Mourthe Marques Villaça Veiga
 * Bruno Henrique Ferreira da Silva
 * Ednilson Rafael de Carvalho
