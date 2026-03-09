@@ -1,11 +1,13 @@
 # Eixo-5
 Arquitetura de Dados em Nuvem
 
-# TÍTULO DO PROJETO
+# Otimização de Fluxos Assistenciais no SUS
 `Banco de dados`
 `2026/1º semestre`
 
-Descrever resumidamente, em um ou dois parágrafos, o projeto que está sendo desenvolvido.
+Este repositório contém a documentação do projeto acadêmico desenvolvido para análise de dados públicos do DATASUS. O trabalho busca compreender padrões de atendimento e identificar possíveis gargalos na gestão de fluxos assistenciais no Sistema Único de Saúde (SUS).
+
+A partir da análise dessas bases de dados, o projeto pretende gerar insights que possam contribuir para uma melhor utilização dos recursos hospitalares e apoiar a tomada de decisão baseada em dados na gestão da saúde pública.
 
 ## Integrantes
 * Anna Karoline Antonio
