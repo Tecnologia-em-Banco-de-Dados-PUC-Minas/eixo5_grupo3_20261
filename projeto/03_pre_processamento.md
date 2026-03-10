@@ -1,1 +1,49 @@
-texto
+# ETAPA 3 - Pré-Processamento e Limpeza de Dados
+
+O pré-processamento (Data Wrangling) é a fase crítica onde os dados brutos extraídos do DATASUS são transformados em um formato estruturado, limpo e pronto para a modelagem analítica e algoritmos de aprendizado de máquina. Como as bases públicas frequentemente apresentam inconsistências de preenchimento, este estágio garante a confiabilidade dos insights que serão gerados para a gestão de saúde.
+
+As principais atividades de engenharia de dados desenvolvidas nesta etapa incluem:
+
+1. **Seleção de Variáveis (Feature Selection):** Filtragem apenas das colunas relevantes para o escopo de otimização de fluxos assistenciais (como código do estabelecimento, data de internação, complexidade do procedimento e tempo de permanência). O descarte de dados não essenciais otimiza o processamento e economiza recursos computacionais.
+2. **Tratamento de Valores Nulos e Inconsistentes:** Identificação de registros incompletos. Valores vitais ausentes (como o identificador numérico do hospital) resultam na exclusão da linha para evitar viés, enquanto dados secundários nulos podem ser tratados com técnicas de imputação estatística.
+3. **Integração Relacional (Joins):** O cruzamento entre as bases transacionais de atendimento (SIH e SIA) e a base cadastral de hospitais (CNES). A chave primária (Primary Key) utilizada para esta junção é o código `CNES` da unidade de saúde, permitindo enriquecer os dados de internação com informações sobre a capacidade instalada do local de atendimento.
+4. **Padronização Tipológica:** Conversão rigorosa de strings para formatos de data (`datetime`) e numéricos (`float`/`int`), assegurando a consistência do banco de dados analítico final.
+
+O script Python abaixo ilustra o pipeline de transformação. Ele carrega os arquivos Parquet gerados na etapa de coleta, aplica as regras de limpeza dimensional, realiza o merge relacional das tabelas e salva o conjunto de dados final isolado na camada de dados processados.
+
+```python
+import pandas as pd
+import os
+
+diretorio_raw = "../data/raw"
+diretorio_processed = "../data/processed"
+os.makedirs(diretorio_processed, exist_ok=True)
+
+print("Carregando bases brutas (Parquet)...")
+df_sih = pd.read_parquet(f"{diretorio_raw}/sih_bruto_MG_2023_01.parquet")
+df_cnes = pd.read_parquet(f"{diretorio_raw}/cnes_bruto_MG_2023_01.parquet")
+
+print("Iniciando limpeza e seleção de variáveis do SIH...")
+# Seleção de colunas essenciais para a análise de fluxo (nomes padrão DATASUS)
+colunas_sih = ['CNES', 'DT_INTER', 'DT_SAIDA', 'DIAS_PERM', 'COMPLEX', 'VAL_TOT']
+colunas_presentes_sih = [col for col in colunas_sih if col in df_sih.columns]
+df_sih_clean = df_sih[colunas_presentes_sih].copy()
+
+# Removendo registros órfãos sem identificação de unidade de saúde
+df_sih_clean.dropna(subset=['CNES'], inplace=True)
+
+print("Iniciando limpeza do CNES (Capacidade Instalada)...")
+colunas_cnes = ['CNES', 'FANTASIA', 'COMPETEN', 'VINC_SUS']
+colunas_presentes_cnes = [col for col in colunas_cnes if col in df_cnes.columns]
+df_cnes_clean = df_cnes[colunas_presentes_cnes].copy()
+
+print("Realizando a integração relacional (Merge) SIH + CNES...")
+# O merge utiliza o código CNES como chave de cruzamento (Inner Join)
+df_integrado = pd.merge(df_sih_clean, df_cnes_clean, on='CNES', how='inner')
+
+print("Salvando base processada e enriquecida...")
+caminho_saida = f"{diretorio_processed}/base_integrada_MG_2023_01.parquet"
+df_integrado.to_parquet(caminho_saida, index=False)
+
+print(f"Pré-processamento concluído. Registros finais: {df_integrado.shape[0]}.")
+print(f"Arquivo salvo em: {caminho_saida}")
