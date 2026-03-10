@@ -37,6 +37,7 @@ df_cnes.to_parquet(f"{diretorio_saida}/cnes_bruto_{estado_alvo}_{ano_referencia}
 
 print("Processo de coleta concluído com sucesso e arquivos isolados no diretório raw.")
 
+
 ## Adendo: Automação, Resiliência e Tratamento de Erros
 
 A execução prática da extração de dados exige uma arquitetura resiliente a falhas de rede e indisponibilidades temporárias dos servidores FTP do governo. A esteira de coleta foi projetada para operar com rotinas de tentativas múltiplas e registro detalhado de eventos. Caso a conexão com o repositório do Ministério da Saúde sofra interrupção durante o descarregamento dos arquivos compactados, o script aciona um mecanismo de espera e nova tentativa, evitando a interrupção silenciosa do pipeline de dados.
