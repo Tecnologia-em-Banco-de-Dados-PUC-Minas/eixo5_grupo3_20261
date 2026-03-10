@@ -5,9 +5,11 @@ Arquitetura de Dados em Nuvem
 `Banco de dados`
 `2026/1º semestre`
 
-Este repositório contém a documentação do projeto acadêmico desenvolvido para análise de dados públicos do DATASUS. O trabalho busca compreender padrões de atendimento e identificar possíveis gargalos na gestão de fluxos assistenciais no Sistema Único de Saúde (SUS).
+Este repositório contém a documentação do projeto acadêmico desenvolvido para análise de dados públicos do DATASUS.
 
-A partir da análise dessas bases de dados, o projeto pretende gerar insights que possam contribuir para uma melhor utilização dos recursos hospitalares e apoiar a tomada de decisão baseada em dados na gestão da saúde pública.
+O objetivo do trabalho é compreender padrões de atendimento e identificar possíveis gargalos na gestão de fluxos assistenciais no Sistema Único de Saúde (SUS).
+
+A partir da análise dessas bases de dados, o projeto busca gerar insights que contribuam para uma melhor utilização dos recursos hospitalares e para apoiar a tomada de decisão baseada em dados na gestão da saúde pública.
 
 ## Integrantes
 * Anna Karoline Antonio
