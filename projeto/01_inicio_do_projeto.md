@@ -34,3 +34,9 @@ Para garantir a confiabilidade técnica, o projeto estabelecerá pontos de contr
 1.  **Origem:** Os dados serão extraídos das bases do DATASUS preservando seu formato original.
 2.  **Transformação (Controle):** Durante o pré-processamento (ETAPA 3), serão implementados logs de validação para rastrear qualquer limpeza de dados inconsistentes, nulos ou outliers.
 3.  **Destino:** Os dados tratados serão armazenados em um repositório analítico, assegurando que o modelo final de otimização consuma apenas informações verificadas e íntegras.
+
+## Adendo: Métricas de Sucesso e Regras de Negócio
+
+Para mensurar a eficácia da proposta de otimização no fluxo assistencial, o projeto estabelece três Indicadores-Chave de Desempenho principais. O primeiro é o Tempo Médio de Espera, que quantifica os dias transcorridos entre a inserção do paciente no sistema de regulação e a efetiva realização do procedimento de alta complexidade. O segundo indicador foca na Taxa de Ocupação Hospitalar, cruzando o volume de internações do Sistema de Informações Hospitalares com a quantidade de leitos ativos registrados no Cadastro Nacional de Estabelecimentos de Saúde. O terceiro indicador aborda o Índice de Ociosidade Ambulatorial, rastreando equipamentos de alto custo que apresentam volume de utilização inferior à capacidade instalada declarada. 
+
+A regra de negócio fundamental estabelece que qualquer proposta de redistribuição de pacientes deve priorizar o atendimento na macrorregião de saúde de origem, minimizando o deslocamento intermunicipal e respeitando as diretrizes de hierarquização do SUS aplicadas em Belo Horizonte e região metropolitana.
