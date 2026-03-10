@@ -1,0 +1,4 @@
+# Bibliotecas necessárias para a ETAPA 2 (Coleta DATASUS)
+pandas>=2.0.0
+PySUS>=0.11.0
+pyarrow>=12.0.0
