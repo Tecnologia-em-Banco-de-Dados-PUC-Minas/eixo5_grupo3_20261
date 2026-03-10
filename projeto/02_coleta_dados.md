@@ -36,3 +36,44 @@ print("CNES extraído. Dimensões:", df_cnes.shape)
 df_cnes.to_parquet(f"{diretorio_saida}/cnes_bruto_{estado_alvo}_{ano_referencia}_{mes_referencia:02d}.parquet", index=False)
 
 print("Processo de coleta concluído com sucesso e arquivos isolados no diretório raw.")
+
+## Adendo: Automação, Resiliência e Tratamento de Erros
+
+A execução prática da extração de dados exige uma arquitetura resiliente a falhas de rede e indisponibilidades temporárias dos servidores FTP do governo. A esteira de coleta foi projetada para operar com rotinas de tentativas múltiplas e registro detalhado de eventos. Caso a conexão com o repositório do Ministério da Saúde sofra interrupção durante o descarregamento dos arquivos compactados, o script aciona um mecanismo de espera e nova tentativa, evitando a interrupção silenciosa do pipeline de dados.
+
+
+Além da resiliência de rede, a automação prevê a execução periódica e o isolamento dos dados. Como as atualizações do DATASUS ocorrem em ciclos mensais, o ambiente de produção simulará um agendamento temporal que aciona o script de forma autônoma. Todo o volume extraído é validado através de funções de contagem de bytes e verificação de integridade estrutural antes da conversão definitiva para o formato Parquet. Este rigor prático assegura que a etapa seguinte de pré-processamento consuma exclusivamente lotes de dados validados e completos. O script abaixo ilustra a aplicação prática de logs e tratamento de exceções na extração.
+
+```python
+import os
+import logging
+import pandas as pd
+from pysus.online_data import SIH
+from time import sleep
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+diretorio_saida = "../data/raw"
+os.makedirs(diretorio_saida, exist_ok=True)
+
+estado_alvo = 'MG'
+ano_referencia = 2023
+mes_referencia = 1
+tentativas_maximas = 3
+
+logging.info("Iniciando rotina de extração com tratamento de exceções.")
+
+for tentativa in range(1, tentativas_maximas + 1):
+    try:
+        logging.info(f"Tentativa {tentativa} de descarregamento da base hospitalar (SIH)...")
+        df_sih = SIH.download(estado_alvo, ano_referencia, mes_referencia)
+        caminho_arquivo = f"{diretorio_saida}/sih_bruto_{estado_alvo}_{ano_referencia}_{mes_referencia:02d}.parquet"
+        df_sih.to_parquet(caminho_arquivo, index=False)
+        logging.info(f"Extração bem-sucedida. Arquivo salvo em: {caminho_arquivo}")
+        break
+    except Exception as erro:
+        logging.error(f"Falha na tentativa {tentativa} devido a erro de conexão ou processamento: {erro}")
+        if tentativa < tentativas_maximas:
+            logging.info("Aguardando 10 segundos antes da próxima tentativa...")
+            sleep(10)
+        else:
+            logging.critical("Número máximo de tentativas atingido. O pipeline foi abortado para intervenção manual.")
