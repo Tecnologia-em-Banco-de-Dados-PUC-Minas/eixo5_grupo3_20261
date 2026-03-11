@@ -48,3 +48,17 @@ Para garantir a confiabilidade técnica, o projeto estabelecerá pontos de contr
 Para mensurar a eficácia da proposta de otimização no fluxo assistencial, o projeto estabelece três Indicadores-Chave de Desempenho principais. O primeiro é o Tempo Médio de Espera, que quantifica os dias transcorridos entre a inserção do paciente no sistema de regulação e a efetiva realização do procedimento de alta complexidade. O segundo indicador foca na Taxa de Ocupação Hospitalar, cruzando o volume de internações do Sistema de Informações Hospitalares com a quantidade de leitos ativos registrados no Cadastro Nacional de Estabelecimentos de Saúde. O terceiro indicador aborda o Índice de Ociosidade Ambulatorial, rastreando equipamentos de alto custo que apresentam volume de utilização inferior à capacidade instalada declarada. 
 
 A regra de negócio fundamental estabelece que qualquer proposta de redistribuição de pacientes deve priorizar o atendimento na macrorregião de saúde de origem, minimizando o deslocamento intermunicipal e respeitando as diretrizes de hierarquização do SUS aplicadas em Belo Horizonte e região metropolitana.
+
+## Adendo: Dicionário de Dados Estrutural
+
+A governança da informação exige o mapeamento rigoroso das variáveis que compõem o modelo analítico. O dicionário de dados estabelece o contrato de integração, definindo a tipagem primitiva e a origem de cada campo estrutural utilizado. A padronização desta nomenclatura garante que toda a equipa manipule as informações com a mesma semântica ao longo do desenvolvimento.
+
+| Variável | Origem | Tipo Físico | Descrição Regra de Negócio |
+| :--- | :--- | :--- | :--- |
+| CNES | SIH / SIA / CNES | String | Código unívoco do Cadastro Nacional de Estabelecimentos de Saúde, atuando como chave primária de relacionamento. |
+| DT_INTER | SIH | Date | Data exata da internação do paciente, utilizada para cálculos de sazonalidade e tempo de espera. |
+| DT_SAIDA | SIH | Date | Data da alta, transferência ou óbito do paciente, delimitando o fim do ciclo assistencial. |
+| DIAS_PERM | SIH | Integer | Quantidade total de dias de permanência no leito, métrica base para o cálculo de ocupação. |
+| COMPLEX | SIH / SIA | String | Grau de complexidade do procedimento, definindo o peso da alocação do recurso. |
+| QT_EXIST | CNES | Integer | Quantidade de leitos ou equipamentos de diagnóstico existentes e ativos na unidade de saúde. |
+| VAL_TOT | SIH / SIA | Float | Valor total faturado pelo procedimento, permitindo cruzar eficiência operacional com impacto financeiro. |
