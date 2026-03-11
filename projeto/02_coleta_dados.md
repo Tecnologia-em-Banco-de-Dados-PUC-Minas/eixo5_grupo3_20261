@@ -35,7 +35,8 @@ df_cnes = CNES.download('ST', estado_alvo, ano_referencia, mes_referencia)
 print("CNES extraído. Dimensões:", df_cnes.shape)
 df_cnes.to_parquet(f"{diretorio_saida}/cnes_bruto_{estado_alvo}_{ano_referencia}_{mes_referencia:02d}.parquet", index=False)
 
-print("Processo de coleta concluído com sucesso e arquivos isolados no diretório raw.")```
+print("Processo de coleta concluído com sucesso e arquivos isolados no diretório raw.")
+```
 
 ## Adendo: Automação, Resiliência e Tratamento de Erros
 
