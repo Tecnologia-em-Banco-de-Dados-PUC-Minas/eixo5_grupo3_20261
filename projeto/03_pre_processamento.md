@@ -9,6 +9,18 @@ As principais atividades de engenharia de dados desenvolvidas nesta etapa inclue
 3. **Integração Relacional (Joins):** O cruzamento entre as bases transacionais de atendimento (SIH e SIA) e a base cadastral de hospitais (CNES). A chave primária (Primary Key) utilizada para esta junção é o código `CNES` da unidade de saúde, permitindo enriquecer os dados de internação com informações sobre a capacidade instalada do local de atendimento.
 4. **Padronização Tipológica:** Conversão rigorosa de strings para formatos de data (`datetime`) e numéricos (`float`/`int`), assegurando a consistência do banco de dados analítico final.
 
+## Ferramentas Utilizadas
+
+Para a realização do pré-processamento dos dados, foi utilizada a linguagem Python, devido à sua ampla adoção no contexto de análise de dados e aprendizado de máquina.
+
+As principais bibliotecas utilizadas foram:
+
+- Pandas: responsável pela manipulação, limpeza, transformação e integração dos dados em formato tabular.
+- PyArrow: utilizada para leitura e escrita de arquivos no formato Parquet, garantindo maior eficiência de armazenamento e processamento.
+- OS: utilizada para gerenciamento de diretórios e organização dos arquivos no sistema.
+
+A escolha dessas ferramentas se deve à sua alta performance no processamento de grandes volumes de dados, facilidade de uso e forte integração com o ecossistema de ciência de dados.
+
 O script Python abaixo ilustra o pipeline de transformação. Ele carrega os arquivos Parquet gerados na etapa de coleta, aplica as regras de limpeza dimensional, realiza o merge relacional das tabelas e salva o conjunto de dados final isolado na camada de dados processados.
 
 ```python
