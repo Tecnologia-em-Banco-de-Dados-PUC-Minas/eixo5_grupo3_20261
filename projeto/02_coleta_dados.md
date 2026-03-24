@@ -24,31 +24,30 @@ O script unificado abaixo consolida a extração das três fontes para o estado 
 ```python
 import os
 import pandas as pd
-from pysus.online_data import SIH, SIA, CNES
+from pysus.online_data import CNES
 
-estado_alvo = 'MG'
-ano_referencia = 2023
-mes_referencia = 1
-diretorio_saida = "../data/raw"
+estado = 'MG'
+ano = 2023
+mes = 1
+diretorio = "dados_brutos"
 
-os.makedirs(diretorio_saida, exist_ok=True)
+def processar_download(objeto_pysus):
+    if isinstance(objeto_pysus, list):
+        return pd.concat([item.to_dataframe() for item in objeto_pysus])
+    return objeto_pysus.to_dataframe()
 
-print("Iniciando a extração da base hospitalar (SIH)...")
-df_sih = SIH.download(estado_alvo, ano_referencia, mes_referencia)
-print("SIH extraído. Dimensões:", df_sih.shape)
-df_sih.to_parquet(f"{diretorio_saida}/sih_bruto_{estado_alvo}_{ano_referencia}_{mes_referencia:02d}.parquet", index=False)
+print("--- Finalizando com o CNES ---")
 
-print("Iniciando a extração da base ambulatorial (SIA)...")
-df_sia = SIA.download(estado_alvo, ano_referencia, mes_referencia)
-print("SIA extraído. Dimensões:", df_sia.shape)
-df_sia.to_parquet(f"{diretorio_saida}/sia_bruto_{estado_alvo}_{ano_referencia}_{mes_referencia:02d}.parquet", index=False)
+try:
+    print("Baixando CNES (Grupo ST)...")
+    data_cnes = CNES.download(group='ST', states=estado, years=ano, months=mes)
+    df_cnes = processar_download(data_cnes)
+    df_cnes.to_parquet(f"{diretorio}/cnes_mg.parquet", index=False)
+    print(f"CNES salvo! ({len(df_cnes)} registros)")
+    print("Missão concluída.")
 
-print("Iniciando a extração do cadastro de estabelecimentos (CNES)...")
-df_cnes = CNES.download('ST', estado_alvo, ano_referencia, mes_referencia)
-print("CNES extraído. Dimensões:", df_cnes.shape)
-df_cnes.to_parquet(f"{diretorio_saida}/cnes_bruto_{estado_alvo}_{ano_referencia}_{mes_referencia:02d}.parquet", index=False)
-
-print("Processo de coleta concluído com sucesso e arquivos isolados no diretório raw.")
+except Exception as e:
+    print(f"Erro no CNES: {e}")
 ```
 ## Adendo: Validação dos Dados
 
