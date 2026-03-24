@@ -21,7 +21,7 @@ Transferência dos arquivos para o ambiente local (Visual Studio Code)
 
 Essa abordagem garantiu a execução completa da coleta sem comprometer a integridade dos dados.
 
-O script unificado abaixo consolida a extração das três fontes para o estado de Minas Gerais. O código inclui pontos de controle que registram o volume de linhas e colunas de cada base imediatamente após o download, assegurando a integridade inicial da linhagem de dados antes da gravação no diretório de destino.
+Como a extração foi realizada de forma separada para cada base, abaixo é apresentado um exemplo de script utilizado no processo, neste caso para a base CNES.
 
 ```python
 import os
