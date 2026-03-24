@@ -67,29 +67,24 @@ Essa validação garantiu que os dados foram carregados corretamente e estão pr
 import pandas as pd
 import os
 
-pasta_raw = os.path.join("data", "raw")
-pasta_processed = os.path.join("data", "processed") 
+caminho_base = os.path.join("data", "raw")
 
-os.makedirs(pasta_processed, exist_ok=True)
+def ver_resumo(nome_arquivo):
+    caminho = os.path.join(caminho_base, nome_arquivo)
+    if os.path.exists(caminho):
+        print(f"\n===== EXPLORANDO: {nome_arquivo} =====")
+        df = pd.read_parquet(caminho)
+        
+        print(f"Total de registros: {len(df)}")
+        print("\n--- Primeiras 5 linhas ---")
+        print(df.head())
+        
+        print("\n--- Colunas disponíveis ---")
+        print(list(df.columns))
+    else:
+        print(f"Arquivo não encontrado: {caminho}")
 
-def limpar_sih():
-    print("--- Processando SIH (Internações) ---")
-    df = pd.read_parquet(os.path.join(pasta_raw, "sih_mg.parquet"))
-    
-    colunas_foco = ['UF_ZI', 'ANO_CMPT', 'MES_CMPT', 'MUNIC_RES', 'NASC', 'SEXO', 
-                    'UTI_INT_TO', 'VAL_TOT', 'DIAG_PRINC', 'DT_INTER', 'DT_SAIDA', 'CNES']
-    df_limpo = df[colunas_foco].copy()
-    
-    df_limpo['DT_INTER'] = pd.to_datetime(df_limpo['DT_INTER'], format='%Y%m%d', errors='coerce')
-    df_limpo['DT_SAIDA'] = pd.to_datetime(df_limpo['DT_SAIDA'], format='%Y%m%d', errors='coerce')
-    
-    df_limpo = df_limpo.dropna(subset=['DT_INTER', 'VAL_TOT'])
-    
-    print(f"SIH limpo! Registros restantes: {len(df_limpo)}")
-    
-    df_limpo.to_parquet(os.path.join(pasta_processed, "sih_mg_limpo.parquet"))
-
-limpar_sih()
+ver_resumo("sih_mg.parquet")
 ```
 ## Planejamento de Governança e Modelo de Dados Inicial
 
