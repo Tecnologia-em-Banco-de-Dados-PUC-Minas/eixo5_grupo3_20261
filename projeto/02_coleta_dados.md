@@ -10,6 +10,8 @@ A estratégia de armazenamento adota o formato Parquet para os dados brutos. Est
 
 Durante a execução do processo de coleta, foram identificadas limitações no ambiente local para realizar a extração completa dos dados. Como solução, foi utilizado o ambiente Google Colab, que oferece maior capacidade de processamento e melhor compatibilidade com as bibliotecas utilizadas.
 
+A extração foi realizada separadamente para cada base (SIH, SIA e CNES), devido a limitações de processamento e estabilidade do ambiente.
+
 Nesse contexto, o processo ocorreu da seguinte forma:
 
 Execução do script de extração no Google Colab
