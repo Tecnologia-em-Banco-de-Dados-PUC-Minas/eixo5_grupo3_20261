@@ -53,7 +53,6 @@ print("Processo de coleta concluído com sucesso e arquivos isolados no diretór
 ## Adendo: Validação dos Dados
 
 Após a coleta e transferência dos arquivos para o ambiente local, foi realizada uma etapa de validação utilizando o Visual Studio Code.
-
 Nessa fase, foi desenvolvido um script simples para exploração dos dados, permitindo:
 
 Verificar a quantidade de registros
@@ -63,6 +62,34 @@ Confirmar a integridade dos arquivos
 
 Essa validação garantiu que os dados foram carregados corretamente e estão prontos para a etapa de pré-processamento.
 
+```python
+import pandas as pd
+import os
+
+pasta_raw = os.path.join("data", "raw")
+pasta_processed = os.path.join("data", "processed") 
+
+os.makedirs(pasta_processed, exist_ok=True)
+
+def limpar_sih():
+    print("--- Processando SIH (Internações) ---")
+    df = pd.read_parquet(os.path.join(pasta_raw, "sih_mg.parquet"))
+    
+    colunas_foco = ['UF_ZI', 'ANO_CMPT', 'MES_CMPT', 'MUNIC_RES', 'NASC', 'SEXO', 
+                    'UTI_INT_TO', 'VAL_TOT', 'DIAG_PRINC', 'DT_INTER', 'DT_SAIDA', 'CNES']
+    df_limpo = df[colunas_foco].copy()
+    
+    df_limpo['DT_INTER'] = pd.to_datetime(df_limpo['DT_INTER'], format='%Y%m%d', errors='coerce')
+    df_limpo['DT_SAIDA'] = pd.to_datetime(df_limpo['DT_SAIDA'], format='%Y%m%d', errors='coerce')
+    
+    df_limpo = df_limpo.dropna(subset=['DT_INTER', 'VAL_TOT'])
+    
+    print(f"SIH limpo! Registros restantes: {len(df_limpo)}")
+    
+    df_limpo.to_parquet(os.path.join(pasta_processed, "sih_mg_limpo.parquet"))
+
+limpar_sih()
+```
 ## Planejamento de Governança e Modelo de Dados Inicial
 
 A governança de dados neste projeto atua como o alicerce metodológico para garantir que as informações extraídas do DATASUS sejam rastreáveis, seguras e perfeitamente alinhadas aos objetivos estratégicos de otimização dos fluxos assistenciais. Esta estrutura define o controle absoluto sobre todo o ciclo de vida da informação, desde o exato momento da ingestão nos servidores FTP até a disponibilização final para os modelos de aprendizado de máquina, assegurando que as decisões gerenciais do projeto sejam baseadas em dados íntegros e auditáveis.
