@@ -6,6 +6,19 @@ Para superar o desafio técnico do formato proprietário e compactado (.dbc) uti
 
 A estratégia de armazenamento adota o formato Parquet para os dados brutos. Esta escolha arquitetônica garante uma compressão superior em relação aos arquivos CSV tradicionais e preserva a tipagem original das colunas. Este cuidado com o esquema de dados desde a origem acelera drasticamente as consultas nas fases subsequentes de pré-processamento e análise exploratória, mantendo a eficiência computacional do projeto.
 
+Adendo: Execução em Ambiente Alternativo
+
+Durante a execução do processo de coleta, foram identificadas limitações no ambiente local para realizar a extração completa dos dados. Como solução, foi utilizado o ambiente Google Colab, que oferece maior capacidade de processamento e melhor compatibilidade com as bibliotecas utilizadas.
+
+Nesse contexto, o processo ocorreu da seguinte forma:
+
+Execução do script de extração no Google Colab
+Download dos dados via PySUS
+Conversão dos dados para o formato Parquet
+Transferência dos arquivos para o ambiente local (Visual Studio Code)
+
+Essa abordagem garantiu a execução completa da coleta sem comprometer a integridade dos dados.
+
 O script unificado abaixo consolida a extração das três fontes para o estado de Minas Gerais. O código inclui pontos de controle que registram o volume de linhas e colunas de cada base imediatamente após o download, assegurando a integridade inicial da linhagem de dados antes da gravação no diretório de destino.
 
 ```python
@@ -37,6 +50,18 @@ df_cnes.to_parquet(f"{diretorio_saida}/cnes_bruto_{estado_alvo}_{ano_referencia}
 
 print("Processo de coleta concluído com sucesso e arquivos isolados no diretório raw.")
 ```
+Adendo: Validação dos Dados
+
+Após a coleta e transferência dos arquivos para o ambiente local, foi realizada uma etapa de validação utilizando o Visual Studio Code.
+
+Nessa fase, foi desenvolvido um script simples para exploração dos dados, permitindo:
+
+Verificar a quantidade de registros
+Visualizar as primeiras linhas das tabelas
+Identificar as colunas disponíveis
+Confirmar a integridade dos arquivos
+
+Essa validação garantiu que os dados foram carregados corretamente e estão prontos para a etapa de pré-processamento.
 
 ## Planejamento de Governança e Modelo de Dados Inicial
 
