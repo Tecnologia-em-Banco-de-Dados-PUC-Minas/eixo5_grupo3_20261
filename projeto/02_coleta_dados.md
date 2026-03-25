@@ -108,7 +108,7 @@ A reprodutibilidade desta esteira de extração exige o isolamento das dependên
 
 Para inicializar o ambiente de desenvolvimento, deve-se abrir a interface de linha de comando na raiz do diretório do projeto e executar a criação do ambiente virtual com `python -m venv venv`. Em sistemas Windows, a ativação ocorre através da execução de `venv\Scripts\activate`, enquanto em ambientes Unix utiliza-se `source venv/bin/activate`. Com o ambiente isolado, a instalação das dependências homologadas é feita executando `pip install -r requirements.txt`, que fará o download das versões exatas do PySUS, Pandas e PyArrow. A partir deste momento, a máquina local possui a arquitetura idêntica à planejada para o ambiente de produção.
 
-## Adendo: Dicionário de Dados CNES
+## Adendo: Dicionário de Dados CNES/SUS
 
 Campo        | Descrição
 -------------|------------------------------------------------------------
@@ -133,6 +133,28 @@ DT_ATUAL     | Data da última atualização do registro
 COMPETEN     | Competência (mês/ano de referência da informação)
 NAT_JUR      | Natureza jurídica do estabelecimento
 
+## Adendo: Dicionário de Dados SIH/SUS
 
+Campo        | Descrição
+-------------|------------------------------------------------------------
+NUM_AIH      | Número da Autorização de Internação Hospitalar (AIH)
+CNES         | Código do hospital onde ocorreu a internação
+UF_ZI        | Unidade da federação de residência do paciente
+MUNIC_RES    | Município de residência do paciente
+SEXO         | Sexo do paciente (M/F)
+IDADE        | Idade do paciente na data da internação
+DT_INTER     | Data de internação
+DT_SAIDA     | Data de saída/alta hospitalar
+DIAG_PRINC   | Diagnóstico principal (CID-10)
+DIAG_SEC     | Diagnóstico secundário (CID-10)
+PROC_SOLIC   | Procedimento solicitado (código SIGTAP)
+PROC_REAL    | Procedimento realizado (código SIGTAP)
+VAL_SH       | Valor referente ao serviço hospitalar
+VAL_SP       | Valor referente ao serviço profissional
+VAL_TOT      | Valor total pago pela internação
+CAR_INT      | Caráter da internação (eletiva, urgência, obstétrica etc.)
+NATUREZA     | Natureza jurídica do hospital (público, privado, filantrópico)
+GESTAO       | Tipo de gestão (municipal, estadual, federal)
+COMPETEN     | Competência (mês/ano de referência da informação)
 
 
