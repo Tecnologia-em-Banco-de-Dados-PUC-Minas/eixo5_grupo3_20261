@@ -110,7 +110,28 @@ Para inicializar o ambiente de desenvolvimento, deve-se abrir a interface de lin
 
 ## Adendo: Dicionário de Dados CNES
 
-
+Campo        | Descrição
+-------------|------------------------------------------------------------
+CNES         | Código único do estabelecimento de saúde
+CODUFMUN     | Código IBGE do município
+COD_CEP      | Código de CEP do endereço
+CPF_CNPJ     | Documento identificador (CPF ou CNPJ)
+PF_PJ        | Indica se é pessoa física (PF) ou jurídica (PJ)
+NIV_DEP      | Nível de dependência administrativa
+CNPJ_MAN     | CNPJ da mantenedora
+COD_IR       | Código da instância reguladora vinculada
+REGSAUDE     | Código da região de saúde
+MICR_REG     | Código da microrregião de saúde
+AP07CV02     | Indicador de serviço/atividade cadastrado (variação específica)
+AP07CV03     | Indicador de serviço/atividade cadastrado (variação específica)
+AP07CV04     | Indicador de serviço/atividade cadastrado (variação específica)
+AP07CV05     | Indicador de serviço/atividade cadastrado (variação específica)
+AP07CV06     | Indicador de serviço/atividade cadastrado (variação específica)
+AP07CV07     | Indicador de serviço/atividade cadastrado (variação específica)
+ATEND_PR     | Indica se há atendimento de pronto-socorro/urgência
+DT_ATUAL     | Data da última atualização do registro
+COMPETEN     | Competência (mês/ano de referência da informação)
+NAT_JUR      | Natureza jurídica do estabelecimento
 
 
 
