@@ -107,3 +107,11 @@ Antes de converter o arquivo para o formato estruturado Parquet, o script verifi
 A reprodutibilidade desta esteira de extração exige o isolamento das dependências do projeto através de um ambiente virtual Python. Esta prática impede que as bibliotecas utilizadas na coleta entrem em conflito com pacotes instalados globalmente nas máquinas dos desenvolvedores, garantindo que o script de conexão execute de forma idêntica para todos os integrantes da equipe.
 
 Para inicializar o ambiente de desenvolvimento, deve-se abrir a interface de linha de comando na raiz do diretório do projeto e executar a criação do ambiente virtual com `python -m venv venv`. Em sistemas Windows, a ativação ocorre através da execução de `venv\Scripts\activate`, enquanto em ambientes Unix utiliza-se `source venv/bin/activate`. Com o ambiente isolado, a instalação das dependências homologadas é feita executando `pip install -r requirements.txt`, que fará o download das versões exatas do PySUS, Pandas e PyArrow. A partir deste momento, a máquina local possui a arquitetura idêntica à planejada para o ambiente de produção.
+
+## Adendo: Dicionário de Dados CNES
+
+
+
+
+
+
