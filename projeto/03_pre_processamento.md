@@ -45,7 +45,7 @@ df_sih_clean = df_sih[colunas_presentes_sih].copy()
 df_sih_clean.dropna(subset=['CNES'], inplace=True)
 
 print("Iniciando limpeza do CNES (Capacidade Instalada)...")
-colunas_cnes = ['CNES', 'FANTASIA', 'COMPETEN', 'VINC_SUS']
+colunas_cnes = ['CNES', 'NOMEFANTASIA', 'COMPETEN', 'VINC_SUS']
 colunas_presentes_cnes = [col for col in colunas_cnes if col in df_cnes.columns]
 df_cnes_clean = df_cnes[colunas_presentes_cnes].copy()
 
