@@ -157,4 +157,26 @@ NATUREZA     | Natureza jurídica do hospital (público, privado, filantrópico)
 GESTAO       | Tipo de gestão (municipal, estadual, federal)
 COMPETEN     | Competência (mês/ano de referência da informação)
 
+## Adendo: Dicionário de Dados SIA/SUS
+
+Campo        | Descrição
+-------------|------------------------------------------------------------
+CNES         | Código do estabelecimento de saúde
+CNPJ         | CNPJ do prestador
+UF_ZI        | Unidade da federação do prestador
+MUNIC_RES    | Município de residência do paciente
+SEXO         | Sexo do paciente (M/F)
+IDADE        | Idade do paciente na data do atendimento
+DT_ATEND     | Data do atendimento ambulatorial
+PROC_SOLIC   | Procedimento solicitado (código SIGTAP)
+PROC_REAL    | Procedimento realizado (código SIGTAP)
+QTD_PROD     | Quantidade de procedimentos realizados
+VAL_SH       | Valor referente ao serviço hospitalar
+VAL_SP       | Valor referente ao serviço profissional
+VAL_TOT      | Valor total pago pelo procedimento
+CAR_ATEND    | Caráter do atendimento (urgência, eletivo, etc.)
+NATUREZA     | Natureza jurídica do prestador (público, privado, filantrópico)
+GESTAO       | Tipo de gestão (municipal, estadual, federal)
+COMPETEN     | Competência (mês/ano de referência da informação)
+
 
