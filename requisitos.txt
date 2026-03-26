@@ -2,3 +2,10 @@
 pandas>=2.0.0
 PySUS>=0.11.0
 pyarrow>=12.0.0
+
+# Bibliotecas necessárias para Etapa 3
+
+
+
+# Bibliotecas necessárias para Etapa 4
+Scikit-learn>=26.0.1
