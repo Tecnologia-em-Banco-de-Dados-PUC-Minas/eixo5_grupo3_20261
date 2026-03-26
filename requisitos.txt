@@ -3,5 +3,5 @@ pandas>=2.0.0
 PySUS>=0.11.0
 pyarrow>=12.0.0
 
-# Bibliotecas necessárias para Etapa 4 (Aprendizagem de Máquina
+# Bibliotecas permitidas para Etapa 4 (Aprendizagem de Máquina
 Scikit-learn>=1.3.0
