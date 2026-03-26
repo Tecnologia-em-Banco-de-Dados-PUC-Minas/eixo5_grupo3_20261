@@ -31,7 +31,8 @@ Essa comparação evidencia a importância de testar diferentes algoritmos, uma 
 
 A aplicação desses modelos demonstra o potencial do uso de técnicas de aprendizado de máquina na análise de dados do SUS, contribuindo para a identificação de padrões e suporte à tomada de decisão.
 
---python
+
+```python
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
