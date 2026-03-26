@@ -27,32 +27,49 @@ O script Python abaixo ilustra o pipeline de transformação. Ele carrega os arq
 import pandas as pd
 import os
 
-diretorio_raw = "../data/raw"
-diretorio_processed = "../data/processed"
+diretorio_raw = "data/raw"
+diretorio_processed = "data/processed"
+
 os.makedirs(diretorio_processed, exist_ok=True)
 
 print("Carregando bases brutas (Parquet)...")
-df_sih = pd.read_parquet(f"{diretorio_raw}/sih_bruto_MG_2023_01.parquet")
-df_cnes = pd.read_parquet(f"{diretorio_raw}/cnes_bruto_MG_2023_01.parquet")
+df_sih = pd.read_parquet(f"{diretorio_raw}/sih_mg.parquet")
+df_cnes = pd.read_parquet(f"{diretorio_raw}/cnes_mg.parquet")
 
 print("Iniciando limpeza e seleção de variáveis do SIH...")
-# Seleção de colunas essenciais para a análise de fluxo (nomes padrão DATASUS)
 colunas_sih = ['CNES', 'DT_INTER', 'DT_SAIDA', 'DIAS_PERM', 'COMPLEX', 'VAL_TOT']
 colunas_presentes_sih = [col for col in colunas_sih if col in df_sih.columns]
 df_sih_clean = df_sih[colunas_presentes_sih].copy()
 
-# Removendo registros órfãos sem identificação de unidade de saúde
+print(f"Colunas selecionadas SIH: {colunas_presentes_sih}")
+print(f"Registros antes da limpeza: {len(df_sih)}")
+
 df_sih_clean.dropna(subset=['CNES'], inplace=True)
 
-print("Iniciando limpeza do CNES (Capacidade Instalada)...")
-colunas_cnes = ['CNES', 'NOMEFANTASIA', 'COMPETEN', 'VINC_SUS']
+print(f"Registros após remover nulos (CNES): {len(df_sih_clean)}")
+
+print("Convertendo datas...")
+df_sih_clean['DT_INTER'] = pd.to_datetime(df_sih_clean['DT_INTER'], format='%Y%m%d', errors='coerce')
+df_sih_clean['DT_SAIDA'] = pd.to_datetime(df_sih_clean['DT_SAIDA'], format='%Y%m%d', errors='coerce')
+
+print("Iniciando limpeza do CNES...")
+colunas_cnes = ['CNES', 'COMPETEN', 'VINC_SUS']
 colunas_presentes_cnes = [col for col in colunas_cnes if col in df_cnes.columns]
 df_cnes_clean = df_cnes[colunas_presentes_cnes].copy()
 
-print("Realizando a integração relacional (Merge) SIH + CNES...")
-# O merge utiliza o código CNES como chave de cruzamento (Inner Join)
+print(f"Colunas selecionadas CNES: {colunas_presentes_cnes}")
+
+print("Realizando integração (merge)...")
 df_integrado = pd.merge(df_sih_clean, df_cnes_clean, on='CNES', how='inner')
 
+print(f"Registros após merge: {len(df_integrado)}")
+
+print("Salvando base processada...")
+caminho_saida = f"{diretorio_processed}/base_integrada.parquet"
+df_integrado.to_parquet(caminho_saida, index=False)
+
+print("Pré-processamento concluído com sucesso!")
+print(f"Arquivo salvo em: {caminho_saida}")
 print("Salvando base processada e enriquecida...")
 caminho_saida = f"{diretorio_processed}/base_integrada_MG_2023_01.parquet"
 df_integrado.to_parquet(caminho_saida, index=False)
