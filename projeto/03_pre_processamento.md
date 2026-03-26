@@ -75,4 +75,5 @@ caminho_saida = f"{diretorio_processed}/base_integrada_MG_2023_01.parquet"
 df_integrado.to_parquet(caminho_saida, index=False)
 
 print(f"Pré-processamento concluído. Registros finais: {df_integrado.shape[0]}.")
+```
 print(f"Arquivo salvo em: {caminho_saida}")
