@@ -27,31 +27,35 @@ O script Python abaixo ilustra o pipeline de transformação. Ele carrega os arq
 import pandas as pd
 import os
 
-diretorio_raw = "data/raw"
-diretorio_processed = "data/processed"
+diretorio_raw = "../data/raw"
+diretorio_processed = "../data/processed"
 os.makedirs(diretorio_processed, exist_ok=True)
 
 print("Carregando bases brutas (Parquet)...")
-df_sih = pd.read_parquet(f"{diretorio_raw}/sih_mg.parquet")
-df_cnes = pd.read_parquet(f"{diretorio_raw}/cnes_mg.parquet")
+df_sih = pd.read_parquet(f"{diretorio_raw}/sih_bruto_MG_2023_01.parquet")
+df_cnes = pd.read_parquet(f"{diretorio_raw}/cnes_bruto_MG_2023_01.parquet")
 
 print("Iniciando limpeza e seleção de variáveis do SIH...")
+# Seleção de colunas essenciais para a análise de fluxo (nomes padrão DATASUS)
 colunas_sih = ['CNES', 'DT_INTER', 'DT_SAIDA', 'DIAS_PERM', 'COMPLEX', 'VAL_TOT']
 colunas_presentes_sih = [col for col in colunas_sih if col in df_sih.columns]
 df_sih_clean = df_sih[colunas_presentes_sih].copy()
 
+# Removendo registros órfãos sem identificação de unidade de saúde
 df_sih_clean.dropna(subset=['CNES'], inplace=True)
 
-print("Iniciando limpeza do CNES...")
-colunas_cnes = ['CNES', 'FANTASIA', 'COMPETEN', 'VINC_SUS']
+print("Iniciando limpeza do CNES (Capacidade Instalada)...")
+colunas_cnes = ['CNES', 'NOMEFANTASIA', 'COMPETEN', 'VINC_SUS']
 colunas_presentes_cnes = [col for col in colunas_cnes if col in df_cnes.columns]
 df_cnes_clean = df_cnes[colunas_presentes_cnes].copy()
 
-print("Realizando integração (merge)...")
+print("Realizando a integração relacional (Merge) SIH + CNES...")
+# O merge utiliza o código CNES como chave de cruzamento (Inner Join)
 df_integrado = pd.merge(df_sih_clean, df_cnes_clean, on='CNES', how='inner')
 
-print("Salvando base processada...")
-caminho_saida = f"{diretorio_processed}/base_integrada.parquet"
+print("Salvando base processada e enriquecida...")
+caminho_saida = f"{diretorio_processed}/base_integrada_MG_2023_01.parquet"
 df_integrado.to_parquet(caminho_saida, index=False)
 
-print(f"Pré-processamento concluído. Registros finais: {df_integrado.shape[0]}")
+print(f"Pré-processamento concluído. Registros finais: {df_integrado.shape[0]}.")
+print(f"Arquivo salvo em: {caminho_saida}")
