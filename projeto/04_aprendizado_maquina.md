@@ -54,7 +54,7 @@ df = df.dropna()
 print(f"Total de registros após limpeza: {len(df)}")
 
 y = df['DIAS_PERM']
-X = df[['VAL_TOT']]
+X = df[['VAL_TOT', 'COMPLEX']]
 
 print("Separando dados em treino e teste...")
 
