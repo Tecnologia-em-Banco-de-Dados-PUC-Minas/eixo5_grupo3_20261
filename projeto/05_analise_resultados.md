@@ -5,7 +5,9 @@
 Foi analisada a performance do modelo de Árvore de Decisão com base nas métricas de classificação, permitindo avaliar sua capacidade de distinguir corretamente as categorias de permanência hospitalar.
 
 Acurácia: O modelo demonstrou uma taxa de acerto de aproximadamente [X]%, sendo eficaz na distinção entre casos de curta, média e longa permanência.
+
 Matriz de Confusão: Esta métrica revelou que o modelo apresenta melhor desempenho na identificação da classe “Alto” (acima de 7 dias), o que é relevante para a gestão hospitalar, já que erros nessa categoria impactam diretamente a ocupação de leitos.
+
 Taxa de Erros: Os erros concentram-se principalmente entre as classes “Baixo” e “Médio”, indicando que casos intermediários são mais difíceis de classificar devido à proximidade de características.
 
 ## Análise de Preditores e Variáveis de Entrada
