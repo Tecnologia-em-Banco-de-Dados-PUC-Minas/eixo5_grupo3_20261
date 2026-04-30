@@ -1,17 +1,48 @@
 # ETAPA 6 - Otimização
 
-A etapa de otimização teve como objetivo avaliar as decisões adotadas ao longo do projeto, comparando o planejamento inicial de governança de dados com as implementações realizadas na prática.
+A etapa de otimização teve como objetivo confrontar o planejamento estratégico de governança de dados, definido na Etapa 2, com as ações efetivamente executadas ao longo do projeto, garantindo que todo o ciclo de vida da informação seguisse padrões de qualidade, segurança e rastreabilidade.
 
-Durante a Etapa 2, foi definido um modelo de governança baseado na organização em camadas (dados brutos, dados processados e dados analíticos), além da definição de responsabilidades e controle do ciclo de vida dos dados. Na execução do projeto, esse planejamento foi parcialmente implementado, especialmente na separação entre dados brutos (raw) e dados processados (processed), garantindo maior organização e rastreabilidade das informações.
+## Confronto com o Planejamento de Governança
 
-Em relação à segurança e conformidade com a legislação, destaca-se que os dados utilizados são provenientes de bases públicas do DATASUS, não contendo informações sensíveis diretamente identificáveis. Ainda assim, foram respeitados os princípios da Lei Geral de Proteção de Dados (LGPD), especialmente no que se refere ao uso responsável das informações e à transparência no tratamento dos dados.
+O planejamento inicial previa uma estrutura organizada em camadas e a definição clara de responsabilidades. Na prática, a implementação foi consolidada nos seguintes pilares:
 
-No aspecto de qualidade dos dados, foram aplicadas técnicas de limpeza, tratamento de valores nulos, padronização de formatos e integração entre diferentes bases, garantindo maior confiabilidade para a análise e modelagem. Essas ações contribuíram diretamente para a melhoria dos resultados obtidos nos modelos de aprendizado de máquina.
+Prestação de Contas (Accountability):
+Foi estabelecido um pipeline de dados bem definido, no qual cada etapa de transformação (da camada raw para processed) é documentada, permitindo rastrear a origem dos dados e identificar possíveis inconsistências.
+Transparência e Administração de Dados:
+A utilização do formato Parquet e a organização em diretórios padronizados garantiram uma estrutura de dados eficiente, legível e auditável por toda a equipe, facilitando a administração dos ativos de informação.
+Conformidade com a LGPD:
+Apesar de os dados do DATASUS serem públicos e anonimizados, foi aplicado o princípio da minimização de dados, utilizando apenas as variáveis essenciais (VAL_TOT, COMPLEX, DIAS_PERM), reduzindo riscos e promovendo o uso responsável das informações.
+Padrões de Qualidade de Dados:
+Foram implementadas rotinas de limpeza, tratamento de valores nulos e padronização de tipos, assegurando que os modelos de aprendizado de máquina operassem sobre dados consistentes e confiáveis.
 
-Como otimizações implementadas ao longo do projeto, destacam-se a redução do volume de dados por meio da seleção de variáveis relevantes, a conversão para formatos mais eficientes (Parquet) e a estruturação de um pipeline de processamento reproduzível.
+## Histórico de Atualizações e Otimizações
 
-Como propostas futuras, recomenda-se a ampliação do conjunto de variáveis utilizadas nos modelos, a inclusão de novas bases de dados do DATASUS, bem como a aplicação de algoritmos mais avançados, como Random Forest e Gradient Boosting, visando melhorar a performance preditiva.
+Ao longo do desenvolvimento, o projeto passou por evoluções importantes que impactaram diretamente sua eficiência e qualidade analítica:
 
-Além disso, o projeto apresenta potencial de aplicação no mercado, especialmente em órgãos públicos e instituições de saúde, podendo auxiliar na análise de fluxo de pacientes, identificação de gargalos no sistema e otimização da alocação de recursos hospitalares.
+Eficiência de Armazenamento:
+A migração do formato CSV para Parquet reduziu significativamente o uso de armazenamento e melhorou o desempenho de leitura e processamento dos dados.
+Estruturação do Pipeline:
+A separação clara entre coleta, pré-processamento e modelagem tornou o processo reproduzível e escalável.
+Refinamento do Problema:
+A principal otimização ocorreu na Etapa 4, com a mudança de abordagem de regressão para classificação, tornando os resultados mais interpretáveis e alinhados ao contexto de gestão hospitalar.
+Identificação de Limitações:
+Foi identificado o desbalanceamento das classes na variável de permanência, impactando a capacidade do modelo em prever a classe “Médio”, o que direciona melhorias futuras.
 
-Por fim, a apresentação final do projeto irá consolidar os resultados obtidos, demonstrando o processo completo desde a coleta até a modelagem e análise dos dados, evidenciando o valor da utilização de técnicas de ciência de dados no contexto da saúde pública.
+## Propostas Futuras e Oportunidades de Mercado
+
+Para a continuidade e evolução do projeto, destacam-se as seguintes oportunidades:
+
+Melhoria Preditiva:
+Aplicação de técnicas de balanceamento de dados, como oversampling (ex: SMOTE), além da utilização de algoritmos mais robustos, como Random Forest e Gradient Boosting.
+Expansão de Variáveis:
+Incorporação de novas variáveis, como idade, diagnóstico (CID) e características sociodemográficas, permitindo análises mais completas e maior poder preditivo.
+Visualização e Aplicação Prática:
+Desenvolvimento de dashboards interativos para acompanhamento em tempo real dos indicadores e previsões.
+Oportunidade de Mercado:
+O modelo apresenta alto potencial de aplicação em Secretarias de Saúde, hospitais e operadoras de saúde suplementar. A solução pode ser evoluída para uma ferramenta de apoio à decisão, permitindo antecipar demandas por leitos, prever custos de internação e otimizar a alocação de recursos, contribuindo para maior eficiência operacional e melhor atendimento ao paciente.
+
+## Considerações Finais
+
+A etapa de otimização consolidou a maturidade do projeto ao alinhar prática e planejamento, evidenciando a importância da governança de dados, da qualidade da informação e da interpretação dos modelos de aprendizado de máquina.
+
+Os resultados obtidos demonstram que, mesmo com limitações, é possível gerar valor real para a gestão da saúde pública por meio da análise de dados, reforçando o potencial da ciência de dados como ferramenta estratégica no contexto do SUS.
