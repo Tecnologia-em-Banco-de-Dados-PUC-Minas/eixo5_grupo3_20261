@@ -4,7 +4,7 @@ O objetivo desta etapa foi desenvolver um modelo capaz de classificar o tempo de
 
 A classificação do tempo de internação é relevante para a gestão hospitalar, pois possibilita identificar antecipadamente casos de curta, média e longa permanência, contribuindo para o planejamento de leitos, alocação de recursos e redução de gargalos no sistema de saúde.
 
-Definição do Problema
+## Definição do Problema
 
 O problema foi modelado como uma tarefa de classificação, em que o objetivo é prever a categoria de permanência hospitalar com base em variáveis disponíveis na base de dados.
 
@@ -16,7 +16,8 @@ As variáveis utilizadas como entrada foram:
 
 VAL_TOT (valor total da internação)
 COMPLEX (nível de complexidade do procedimento)
-Definição das Classes
+
+## Definição das Classes
 
 A variável alvo foi criada a partir da variável original DIAS_PERM, sendo categorizada da seguinte forma:
 
@@ -26,9 +27,9 @@ Alto (Longa permanência): acima de 7 dias
 
 Essa categorização permite uma interpretação mais prática dos resultados, facilitando a tomada de decisão por gestores de saúde.
 
-Preparação dos Dados
+## Preparação dos Dados
 
-Antes do treinamento dos modelos, foram realizadas as seguintes etapas:
+Antes do treinamento do modelo, foram realizadas as seguintes etapas:
 
 Conversão das variáveis para formato numérico
 Remoção de valores nulos
@@ -36,7 +37,7 @@ Criação da variável categórica de permanência (PERM_CLASSE)
 
 Essas etapas garantem a consistência e qualidade dos dados utilizados no treinamento.
 
-Divisão dos Dados
+## Divisão dos Dados
 
 Em seguida, a base de dados foi dividida em dois subconjuntos:
 
@@ -45,13 +46,13 @@ Em seguida, a base de dados foi dividida em dois subconjuntos:
 
 Essa divisão permite avaliar a capacidade do modelo de generalizar para novos dados, ou seja, sua capacidade de fazer previsões corretas em situações não vistas durante o treinamento.
 
-Modelo Utilizado
+## Modelo Utilizado
 
-Foi utilizado o algoritmo de Árvore de Decisão (Decision Tree Classifier), escolhido por sua capacidade de interpretação, permitindo visualizar as regras utilizadas para classificar os pacientes.
+Foi utilizado o algoritmo de Árvore de Decisão (Decision Tree Classifier), escolhido por sua capacidade de interpretação.
 
-Esse modelo é especialmente útil em contextos de gestão, pois possibilita entender os fatores que influenciam cada tipo de permanência hospitalar.
+Esse modelo permite visualizar as regras utilizadas para classificar os pacientes, sendo especialmente útil em contextos de gestão, pois possibilita entender os fatores que influenciam cada tipo de permanência hospitalar.
 
-Métricas de Avaliação
+## Métricas de Avaliação
 
 Para avaliar o desempenho do modelo, foram utilizadas as seguintes métricas:
 
@@ -61,15 +62,17 @@ Relatório de Classificação: métricas de precisão, recall e F1-score para ca
 
 Essas métricas permitem uma avaliação completa da qualidade do modelo.
 
-Resultados e Interpretação
+## Resultados e Interpretação
 
 Os resultados obtidos demonstraram que o modelo é capaz de classificar os pacientes em categorias de permanência com bom desempenho, permitindo identificar padrões relevantes nos dados.
+
+A acurácia obtida pelo modelo indica que ele possui boa capacidade de identificar corretamente as categorias de permanência hospitalar, sendo útil como ferramenta de apoio à decisão.
 
 A utilização da árvore de decisão também possibilitou a extração de regras de decisão, evidenciando como variáveis como o valor total da internação e o nível de complexidade influenciam na duração da permanência hospitalar.
 
 De forma geral, o modelo apresentou boa capacidade de generalização, sendo capaz de apoiar análises voltadas à gestão hospitalar.
 
-Considerações
+## Considerações
 
 A reformulação do problema de regressão para classificação permitiu tornar os resultados mais interpretáveis e aplicáveis ao contexto real do SUS, facilitando a identificação de perfis de internação e contribuindo para a tomada de decisão baseada em dados.
 
@@ -94,7 +97,6 @@ df['VAL_TOT'] = pd.to_numeric(df['VAL_TOT'], errors='coerce')
 df['DIAS_PERM'] = pd.to_numeric(df['DIAS_PERM'], errors='coerce')
 df['COMPLEX'] = pd.to_numeric(df['COMPLEX'], errors='coerce')
 
-# Remover nulos
 df = df.dropna()
 
 print(f"Total de registros após limpeza: {len(df)}")
@@ -132,15 +134,12 @@ print("\nAvaliando modelo...")
 
 pred_dt = modelo_dt.predict(X_test)
 
-# Acurácia
 acuracia = accuracy_score(y_test, pred_dt)
 print(f"\nAcurácia do Modelo: {acuracia:.2%}")
 
-# Relatório completo
 print("\nRelatório de Classificação:")
 print(classification_report(y_test, pred_dt))
 
-# Matriz de confusão
 print("\nMatriz de Confusão:")
 print(confusion_matrix(y_test, pred_dt))
 
@@ -149,7 +148,6 @@ tree_rules = export_text(modelo_dt, feature_names=['VAL_TOT', 'COMPLEX'])
 print(tree_rules)
 
 print("\nImportância das variáveis:")
-
 importancias = pd.Series(modelo_dt.feature_importances_, index=X.columns)
 print(importancias)
 
