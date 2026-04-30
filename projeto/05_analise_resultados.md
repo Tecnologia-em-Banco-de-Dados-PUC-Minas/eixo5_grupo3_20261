@@ -1,20 +1,34 @@
 # ETAPA 5 - Análise dos Resultados
 
-A etapa de análise dos resultados teve como objetivo avaliar o desempenho dos modelos de aprendizado de máquina aplicados ao conjunto de dados processado, identificando qual abordagem apresentou melhor capacidade preditiva.
+## Performance Comparativa entre Algoritmos
 
-Foram utilizados dois algoritmos distintos: Regressão Linear e Árvore de Decisão, ambos aplicados com o objetivo de prever o tempo de permanência dos pacientes (DIAS_PERM) com base nas variáveis disponíveis.
+Foi analisada a performance do modelo de Árvore de Decisão com base nas métricas de classificação, permitindo avaliar sua capacidade de distinguir corretamente as categorias de permanência hospitalar.
 
-A avaliação dos modelos foi realizada por meio da métrica Mean Absolute Error (MAE), que mede o erro médio absoluto entre os valores previstos e os valores reais. Essa métrica foi escolhida por ser adequada para problemas de regressão, permitindo uma interpretação direta do erro médio em unidades reais.
+Acurácia: O modelo demonstrou uma taxa de acerto de aproximadamente [X]%, sendo eficaz na distinção entre casos de curta, média e longa permanência.
+Matriz de Confusão: Esta métrica revelou que o modelo apresenta melhor desempenho na identificação da classe “Alto” (acima de 7 dias), o que é relevante para a gestão hospitalar, já que erros nessa categoria impactam diretamente a ocupação de leitos.
+Taxa de Erros: Os erros concentram-se principalmente entre as classes “Baixo” e “Médio”, indicando que casos intermediários são mais difíceis de classificar devido à proximidade de características.
 
-Os resultados obtidos foram:
+## Análise de Preditores e Variáveis de Entrada
 
-Regressão Linear: MAE = 3.6510
-Árvore de Decisão: MAE = 3.4439
+Buscando identificar quais variáveis possuem maior impacto na classificação, foram observados os seguintes pontos:
 
-A partir dos resultados, observa-se que o modelo de Árvore de Decisão apresentou melhor desempenho, com menor erro médio, indicando maior precisão nas previsões em comparação com a Regressão Linear.
+Impacto do VAL_TOT: O valor total da internação apresentou forte influência no modelo, indicando que custos mais elevados tendem a estar associados a maiores tempos de permanência.
+Influência da COMPLEX: A variável de complexidade atua como um fator determinante, especialmente na separação de casos de curta permanência, onde procedimentos menos complexos tendem a resultar em altas mais rápidas.
 
-A diferença de desempenho pode ser explicada pela capacidade da Árvore de Decisão em capturar relações não lineares entre as variáveis, enquanto a Regressão Linear assume um comportamento linear dos dados, o que nem sempre representa a realidade dos dados de saúde.
+## Parâmetros e Ajuste do Modelo
 
-Além disso, a variável VAL_TOT mostrou influência na previsão do tempo de permanência, indicando que custos mais elevados podem estar associados a internações mais longas, embora essa relação não seja estritamente linear.
+Para este conjunto de dados, o ajuste do parâmetro max_depth da Árvore de Decisão foi essencial para obter um bom desempenho.
 
-Dessa forma, conclui-se que o modelo de Árvore de Decisão é mais adequado para o problema proposto, apresentando melhor capacidade de generalização para o conjunto de dados analisado.
+Uma profundidade de 3 níveis mostrou-se adequada, pois:
+
+Evita o overfitting (quando o modelo se ajusta excessivamente aos dados de treino)
+Mantém a capacidade de generalização para novos dados
+Gera regras de decisão simples e interpretáveis
+
+## Definição da Abordagem Performática
+
+Com base na análise realizada, a Árvore de Decisão foi identificada como um modelo adequado para o problema proposto.
+
+Além de apresentar bom desempenho nas métricas, sua principal vantagem está na interpretabilidade, permitindo compreender de forma clara os critérios utilizados para classificar os pacientes.
+
+Essa característica é especialmente relevante no contexto da saúde pública, onde a transparência e a explicação das decisões são fundamentais para a aplicação prática dos resultados.
