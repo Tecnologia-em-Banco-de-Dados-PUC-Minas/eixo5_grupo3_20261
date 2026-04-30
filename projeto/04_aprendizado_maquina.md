@@ -1,6 +1,6 @@
 # ETAPA 4 - Aprendizagem de Máquina
 
-O objetivo desenvolver um modelo capaz de classificar o tempo de permanência hospitalar dos pacientes em categorias, permitindo uma melhor análise e apoio à gestão dos fluxos assistenciais no SUS.
+O objetivo desta etapa foi desenvolver um modelo capaz de classificar o tempo de permanência hospitalar dos pacientes em categorias, permitindo uma melhor análise e apoio à gestão dos fluxos assistenciais no SUS.
 
 A classificação do tempo de internação é relevante para a gestão hospitalar, pois possibilita identificar antecipadamente casos de curta, média e longa permanência, contribuindo para o planejamento de leitos, alocação de recursos e redução de gargalos no sistema de saúde.
 
