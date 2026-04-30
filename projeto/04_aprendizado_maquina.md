@@ -72,12 +72,6 @@ A utilização da árvore de decisão também possibilitou a extração de regra
 
 De forma geral, o modelo apresentou boa capacidade de generalização, sendo capaz de apoiar análises voltadas à gestão hospitalar.
 
-## Considerações
-
-A reformulação do problema de regressão para classificação permitiu tornar os resultados mais interpretáveis e aplicáveis ao contexto real do SUS, facilitando a identificação de perfis de internação e contribuindo para a tomada de decisão baseada em dados.
-
-Essa abordagem evidencia o potencial do uso de técnicas de aprendizado de máquina na análise de dados da saúde pública, auxiliando na otimização dos fluxos assistenciais e no uso mais eficiente dos recursos disponíveis.
-
 ```python
 import pandas as pd
 import numpy as np
