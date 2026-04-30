@@ -1,95 +1,65 @@
 # ETAPA 4 - Aprendizagem de Máquina
 
-A etapa de aprendizagem de máquina teve como objetivo aplicar modelos preditivos sobre os dados previamente tratados, buscando identificar padrões e gerar insights relevantes para a análise dos fluxos assistenciais.
+O objetivo desta etapa foi desenvolver um modelo capaz de prever a categoria de permanência hospitalar do paciente (Baixa, Média ou Alta). Essa classificação é crucial para a gestão de leitos e planejamento de custos assistenciais, permitindo que o hospital identifique precocemente casos de longa permanência.
 
-Foi definido como problema de estudo a previsão do tempo de permanência hospitalar (DIAS_PERM), caracterizando um problema de regressão, uma vez que a variável alvo é numérica.
+Definição das Classes:
 
-Para a realização dos experimentos, foram utilizados dois algoritmos amplamente aplicados em problemas de regressão:
+Baixa (Curta): Até 3 dias (Foco em giro rápido de leito).
 
-Regressão Linear
-Árvore de Decisão (Decision Tree Regressor)
+Média: De 4 a 7 dias (Padrão assistencial comum).
 
-Inicialmente, os dados foram preparados por meio da conversão das variáveis para tipos numéricos e remoção de valores nulos, garantindo compatibilidade com os modelos de aprendizado de máquina.
+Alta (Longa): Acima de 7 dias (Casos complexos e maior custo).
 
-Em seguida, a base de dados foi dividida em dois subconjuntos:
+Modelos Utilizados:
+Para explicar as razões das classificações, utilizamos a Árvore de Decisão, pois ela permite a visualização das regras (ex: se o valor total for > X e a complexidade for Y, então a permanência é Alta). Comparamos seu desempenho com um modelo de Regressão Logística (para fins de classificação).
 
-80% para treino
-20% para teste
-
-Essa divisão permite avaliar a capacidade de generalização dos modelos em dados não vistos durante o treinamento.
-
-Como métrica de avaliação, foi utilizado o Erro Absoluto Médio (Mean Absolute Error - MAE), que mede a diferença média entre os valores reais e os valores previstos pelos modelos.
-
-Os resultados obtidos foram:
-
-Regressão Linear: MAE = 3.6510
-Árvore de Decisão: MAE = 3.4439
-
-Com base nos resultados, o modelo de Árvore de Decisão apresentou melhor desempenho, pois obteve menor erro médio na previsão do tempo de internação.
-
-Essa comparação evidencia a importância de testar diferentes algoritmos, uma vez que modelos mais flexíveis, como árvores de decisão, podem capturar melhor padrões não lineares presentes nos dados da saúde pública.
-
-A aplicação desses modelos demonstra o potencial do uso de técnicas de aprendizado de máquina na análise de dados do SUS, contribuindo para a identificação de padrões e suporte à tomada de decisão.
+Métricas:
+Diferente da regressão simples, aqui utilizamos a Acurácia e a Matriz de Confusão, que mostram onde o modelo está acertando ou confundindo os perfis de internação.
 
 
 ```python
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import mean_absolute_error
+from sklearn.tree import DecisionTreeClassifier, export_text
+from sklearn.metrics import classification_report, accuracy_score
 
-print("Carregando base processada...")
+# 1. Carregamento e Preparação
 df = pd.read_parquet("data/processed/base_integrada.parquet")
-
-print("Dados carregados com sucesso!")
-
-print("Convertendo variáveis para formato numérico...")
-
 df['VAL_TOT'] = pd.to_numeric(df['VAL_TOT'], errors='coerce')
 df['DIAS_PERM'] = pd.to_numeric(df['DIAS_PERM'], errors='coerce')
-
 df = df.dropna()
 
-print(f"Total de registros após limpeza: {len(df)}")
+# 2. CRIAÇÃO DAS CLASSES (O que o professor pediu)
+def categorizar_permanencia(dias):
+    if dias <= 3: return 'Baixo'
+    elif dias <= 7: return 'Medio'
+    else: return 'Alto'
 
-y = df['DIAS_PERM']
+df['PERM_CLASSE'] = df['DIAS_PERM'].apply(categorizar_permanencia)
+
+# 3. Preparação para o Modelo
 X = df[['VAL_TOT', 'COMPLEX']]
+y = df['PERM_CLASSE']
 
-print("Separando dados em treino e teste...")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-print("\nTreinando Regressão Linear...")
-
-modelo_lr = LinearRegression()
-modelo_lr.fit(X_train, y_train)
-
-pred_lr = modelo_lr.predict(X_test)
-
-erro_lr = mean_absolute_error(y_test, pred_lr)
-
-print(f"Erro Regressão Linear (MAE): {erro_lr:.4f}")
-
-print("\nTreinando Árvore de Decisão...")
-
-modelo_dt = DecisionTreeRegressor(random_state=42)
+# 4. Treinando Árvore de Decisão (Excelente para explicar o "porquê")
+modelo_dt = DecisionTreeClassifier(max_depth=3, random_state=42)
 modelo_dt.fit(X_train, y_train)
 
+# 5. Avaliação
 pred_dt = modelo_dt.predict(X_test)
+print(f"Acurácia do Modelo: {accuracy_score(y_test, pred_dt):.2%}")
+print("\nRelatório de Classificação:\n", classification_report(y_test, pred_dt))
 
-erro_dt = mean_absolute_error(y_test, pred_dt)
+# 6. MOSTRANDO A LÓGICA (O "porquê" de ser alto, médio ou baixo)
+print("\n--- REGRAS DE DECISÃO DO MODELO ---")
+tree_rules = export_text(modelo_dt, feature_names=['VAL_TOT', 'COMPLEX'])
+print(tree_rules)
 
-print(f"Erro Árvore de Decisão (MAE): {erro_dt:.4f}")
-
-print("\nComparando modelos...")
-
-if erro_lr < erro_dt:
-    print("Melhor modelo: Regressão Linear")
-else:
-    print("Melhor modelo: Árvore de Decisão")
-
-print("\nProcesso de Machine Learning finalizado com sucesso!")
+# 7. Importância das Variáveis
+importancias = pd.Series(modelo_dt.feature_importances_, index=X.columns)
+print("\nImportância das colunas na classificação:")
+print(importancias)
 ```
