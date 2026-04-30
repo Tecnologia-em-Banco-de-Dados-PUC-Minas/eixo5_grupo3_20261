@@ -4,33 +4,47 @@
 
 Foi analisada a performance do modelo de Árvore de Decisão com base nas métricas de classificação, permitindo avaliar sua capacidade de distinguir corretamente as categorias de permanência hospitalar.
 
-Acurácia: O modelo demonstrou uma taxa de acerto de aproximadamente [X]%, sendo eficaz na distinção entre casos de curta, média e longa permanência.
+Acurácia: O modelo apresentou uma taxa de acerto de aproximadamente 63,72%, indicando desempenho moderado na classificação dos pacientes.
 
-Matriz de Confusão: Esta métrica revelou que o modelo apresenta melhor desempenho na identificação da classe “Alto” (acima de 7 dias), o que é relevante para a gestão hospitalar, já que erros nessa categoria impactam diretamente a ocupação de leitos.
+Matriz de Confusão: A análise revelou que o modelo apresenta bom desempenho na identificação da classe “Baixo” e desempenho razoável para a classe “Alto”. No entanto, a classe “Médio” não foi corretamente prevista pelo modelo, evidenciando uma limitação importante.
 
-Taxa de Erros: Os erros concentram-se principalmente entre as classes “Baixo” e “Médio”, indicando que casos intermediários são mais difíceis de classificar devido à proximidade de características.
+Taxa de Erros: Os erros concentram-se principalmente na incapacidade do modelo em distinguir a classe intermediária (“Médio”), que foi frequentemente classificada como “Baixo”.
 
 ## Análise de Preditores e Variáveis de Entrada
 
 Buscando identificar quais variáveis possuem maior impacto na classificação, foram observados os seguintes pontos:
 
-Impacto do VAL_TOT: O valor total da internação apresentou forte influência no modelo, indicando que custos mais elevados tendem a estar associados a maiores tempos de permanência.
-Influência da COMPLEX: A variável de complexidade atua como um fator determinante, especialmente na separação de casos de curta permanência, onde procedimentos menos complexos tendem a resultar em altas mais rápidas.
+Impacto do VAL_TOT: O valor total da internação apresentou forte influência no modelo, com importância de aproximadamente 81%, indicando que custos mais elevados estão fortemente associados a internações mais longas.
+Influência da COMPLEX: A variável de complexidade apresentou menor impacto (18%), mas ainda contribui para a diferenciação entre casos mais simples e mais complexos.
 
 ## Parâmetros e Ajuste do Modelo
 
-Para este conjunto de dados, o ajuste do parâmetro max_depth da Árvore de Decisão foi essencial para obter um bom desempenho.
+Parâmetros e Ajuste do Modelo
 
-Uma profundidade de 3 níveis mostrou-se adequada, pois:
+Para este conjunto de dados, o parâmetro max_depth = 3 foi utilizado para limitar a complexidade da árvore.
 
-Evita o overfitting (quando o modelo se ajusta excessivamente aos dados de treino)
-Mantém a capacidade de generalização para novos dados
-Gera regras de decisão simples e interpretáveis
+Essa configuração:
+
+Evita overfitting
+Mantém a interpretabilidade do modelo
+Gera regras de decisão claras
+
+## Limitações Identificadas
+
+Durante a análise, foi identificado um problema de desbalanceamento de classes, onde a categoria “Baixo” possui maior quantidade de registros em comparação às demais.
+
+Esse fator influenciou diretamente o modelo, fazendo com que ele priorizasse a previsão das classes mais frequentes e ignorasse a classe “Médio”.
+
+Essa limitação indica a necessidade de técnicas adicionais, como:
+
+Balanceamento de dados (oversampling/undersampling)
+Ajuste de pesos das classes
+Teste com outros algoritmos
 
 ## Definição da Abordagem Performática
 
-Com base na análise realizada, a Árvore de Decisão foi identificada como um modelo adequado para o problema proposto.
+A Árvore de Decisão mostrou-se adequada por sua capacidade de interpretação e geração de regras claras.
 
-Além de apresentar bom desempenho nas métricas, sua principal vantagem está na interpretabilidade, permitindo compreender de forma clara os critérios utilizados para classificar os pacientes.
+Apesar das limitações, o modelo conseguiu identificar padrões relevantes, especialmente relacionados ao impacto do custo da internação no tempo de permanência.
 
-Essa característica é especialmente relevante no contexto da saúde pública, onde a transparência e a explicação das decisões são fundamentais para a aplicação prática dos resultados.
+Essa abordagem demonstra o potencial do uso de aprendizado de máquina para apoiar a gestão hospitalar, mesmo em cenários com desafios como desbalanceamento de dados.
