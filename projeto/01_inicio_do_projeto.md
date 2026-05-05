@@ -51,7 +51,7 @@ A regra de negócio fundamental estabelece que qualquer proposta de redistribui�
 
 ## Adendo: Dicionário de Dados Estrutural
 
-A governança da informação exige o mapeamento rigoroso das variáveis que compõem o modelo analítico. O dicionário de dados estabelece o contrato de integração, definindo a tipagem primitiva e a origem de cada campo estrutural utilizado. A padronização desta nomenclatura garante que toda a equipa manipule as informações com a mesma semântica ao longo do desenvolvimento.
+A governança da informação exige o mapeamento rigoroso das variáveis que compõem o modelo analítico. O dicionário de dados estabelece o contrato de integração, definindo a tipagem primitiva e a origem de cada campo estrutural utilizado. A padronização desta nomenclatura garante que toda a equipe manipule as informações com a mesma semântica ao longo do desenvolvimento.
 
 | Variável | Origem | Tipo Físico | Descrição Regra de Negócio |
 | :--- | :--- | :--- | :--- |
