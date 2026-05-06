@@ -66,7 +66,7 @@ Essas métricas permitem uma avaliação completa da qualidade do modelo.
 
 Os resultados obtidos demonstraram que o modelo é capaz de classificar os pacientes em categorias de permanência com bom desempenho, permitindo identificar padrões relevantes nos dados.
 
-A acurácia obtida pelo modelo indica que ele possui boa capacidade de identificar corretamente as categorias de permanência hospitalar, sendo útil como ferramenta de apoio à decisão.
+A acurácia obtida pelo modelo foi de 63,72%, indicando que aproximadamente 6 a cada 10 classificações foram realizadas corretamente.
 
 A utilização da árvore de decisão também possibilitou a extração de regras de decisão, evidenciando como variáveis como o valor total da internação e o nível de complexidade influenciam na duração da permanência hospitalar.
 
