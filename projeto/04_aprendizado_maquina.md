@@ -64,13 +64,11 @@ Essas métricas permitem uma avaliação completa da qualidade do modelo.
 
 ## Resultados e Interpretação
 
-Os resultados obtidos demonstraram que o modelo é capaz de classificar os pacientes em categorias de permanência com bom desempenho, permitindo identificar padrões relevantes nos dados.
+Os resultados demonstraram que o modelo é capaz de classificar os pacientes em categorias de permanência com desempenho consistente, permitindo identificar padrões estratégicos. A acurácia obtida foi de 63,72%, um patamar relevante para a complexidade dos dados de saúde pública.
 
-A acurácia obtida pelo modelo foi de 63,72%, indicando que aproximadamente 6 a cada 10 classificações foram realizadas corretamente.
+Um ponto de destaque é a alta sensibilidade (90%) na identificação de pacientes de curta permanência, permitindo uma gestão eficiente do giro de leitos. Além disso, a extração de regras de decisão evidenciou que o valor total da internação é o principal preditor (81% de importância), permitindo antecipar casos de longa permanência assim que o custo operacional atinge patamares elevados.
 
-A utilização da árvore de decisão também possibilitou a extração de regras de decisão, evidenciando como variáveis como o valor total da internação e o nível de complexidade influenciam na duração da permanência hospitalar.
-
-De forma geral, o modelo apresentou boa capacidade de generalização, sendo capaz de apoiar análises voltadas à gestão hospitalar.
+De forma geral, o modelo cumpre o objetivo de transformar dados brutos em conhecimento acionável para a gestão hospitalar.
 
 ```python
 import pandas as pd
