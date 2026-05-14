@@ -48,3 +48,31 @@ A Árvore de Decisão mostrou-se adequada por sua capacidade de interpretação 
 Apesar das limitações, o modelo conseguiu identificar padrões relevantes, especialmente relacionados ao impacto do custo da internação no tempo de permanência.
 
 Essa abordagem demonstra o potencial do uso de aprendizado de máquina para apoiar a gestão hospitalar, mesmo em cenários com desafios como desbalanceamento de dados.
+
+# Confecção e Apresentação de Relatórios e Dashboards
+
+Com o objetivo de facilitar a interpretação dos resultados obtidos, foram desenvolvidas visualizações e relatórios contendo as principais métricas geradas pelo modelo de aprendizado de máquina.
+
+Os relatórios apresentam informações como:
+
+Distribuição das classes de permanência hospitalar
+Acurácia do modelo
+Matriz de confusão
+Importância das variáveis utilizadas
+Regras de decisão geradas pela Árvore de Decisão
+
+Além disso, foram desenvolvidas visualizações em HTML e CSS para representar de forma mais intuitiva os resultados do modelo, permitindo uma análise mais clara dos padrões identificados nos dados.
+
+Esses dashboards contribuem para a interpretação dos resultados e demonstram o potencial da utilização de ferramentas visuais no apoio à tomada de decisão na gestão hospitalar.
+
+# Comparação dos Algoritmos Utilizados
+
+Inicialmente, o projeto utilizou uma abordagem de regressão, aplicando os algoritmos Regressão Linear e Árvore de Decisão Regressora para prever o número exato de dias de internação.
+
+No entanto, observou-se que essa abordagem apresentava baixa interpretabilidade para o contexto de gestão hospitalar, dificultando a aplicação prática dos resultados.
+
+Diante disso, o problema foi reformulado para uma abordagem de classificação, categorizando os pacientes em grupos de curta, média e longa permanência.
+
+Após a reformulação, foi utilizado o algoritmo Árvore de Decisão Classificadora, que apresentou melhor capacidade de interpretação e maior aderência ao objetivo do projeto.
+
+A principal vantagem observada foi a possibilidade de compreender as regras utilizadas pelo modelo, permitindo identificar quais fatores influenciam diretamente o tempo de permanência hospitalar.
